@@ -6,10 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.projeto.api.domain.Resppedagogico;
 import com.projeto.api.repository.ResppedagogicoRepository;
+import com.projeto.api.repository.filter.ResppedagogicoFilter;
 
 @Service
 public class ResppedagogicoService {
@@ -20,7 +23,15 @@ public class ResppedagogicoService {
 	public List<Resppedagogico> Listar() {
 		return this.dao.findAll();
 	}
-
+	
+	public Page<Resppedagogico> Filtrando(ResppedagogicoFilter filtro, Pageable page){
+		try {
+			return this.dao.Filtrando(filtro, page);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}	
+	}
 
 	public Resppedagogico Criar(Resppedagogico resp) {
 		try {
