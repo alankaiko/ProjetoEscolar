@@ -22,34 +22,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projeto.api.domain.Resppedagogico;
+import com.projeto.api.domain.Professor;
 import com.projeto.api.event.RecursoCriadoEvent;
-import com.projeto.api.repository.filter.ResppedagogicoFilter;
-import com.projeto.api.service.ResppedagogicoService;
+import com.projeto.api.repository.filter.ProfessorFilter;
+import com.projeto.api.service.ProfessorService;
 
 @RestController
 @RequestMapping("/resppedagogicos")
 @CrossOrigin("*")
-public class ResppedagogicoResources {
+public class ProfessorResources {
 	@Autowired
-	private ResppedagogicoService service;
+	private ProfessorService service;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
-	public List<Resppedagogico> ListarTodos(){
+	public List<Professor> ListarTodos(){
 		return this.service.Listar();
 	}	
 	
 	@GetMapping(params = "resumo")
-	public Page<Resppedagogico> Resumir(ResppedagogicoFilter filtro, Pageable page) {
+	public Page<Professor> Resumir(ProfessorFilter filtro, Pageable page) {
 		return this.service.Filtrando(filtro, page);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Resppedagogico> Salvar(@Valid @RequestBody Resppedagogico resp, HttpServletResponse resposta){
-		Resppedagogico salvo = this.service.Criar(resp);
+	public ResponseEntity<Professor> Salvar(@Valid @RequestBody Professor resp, HttpServletResponse resposta){
+		Professor salvo = this.service.Criar(resp);
 		this.publisher.publishEvent(new RecursoCriadoEvent(this, resposta, salvo.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
 	}
@@ -61,14 +61,14 @@ public class ResppedagogicoResources {
 	}
 	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Resppedagogico> PorId(@PathVariable Long codigo){
-		Resppedagogico salvo = this.service.BuscarPorId(codigo);
+	public ResponseEntity<Professor> PorId(@PathVariable Long codigo){
+		Professor salvo = this.service.BuscarPorId(codigo);
 		return ResponseEntity.ok(salvo);
 	}
 	
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Resppedagogico> Atualizar(@PathVariable Long codigo, @Valid @RequestBody Resppedagogico resp){
-		Resppedagogico salvo = this.service.Atualizar(codigo, resp);
+	public ResponseEntity<Professor> Atualizar(@PathVariable Long codigo, @Valid @RequestBody Professor resp){
+		Professor salvo = this.service.Atualizar(codigo, resp);
 		return ResponseEntity.ok(salvo);
 	}
 }

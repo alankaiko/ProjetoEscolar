@@ -1,6 +1,6 @@
 package com.projeto.api.repository.filter;
 
-public class ResppedagogicoFilter {
+public class ProfessorFilter {
 	private String professor;
 	
 	public String getProfessor() {

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Table
 @Entity
-public class Resppedagogico {
+public class Professor {
 	private Long codigo;
 	private String professor;
 	

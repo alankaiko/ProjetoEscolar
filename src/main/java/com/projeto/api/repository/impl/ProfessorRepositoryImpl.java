@@ -16,35 +16,35 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
-import com.projeto.api.domain.Resppedagogico;
-import com.projeto.api.domain.Resppedagogico_;
-import com.projeto.api.repository.filter.ResppedagogicoFilter;
+import com.projeto.api.domain.Professor;
+import com.projeto.api.domain.Professor_;
+import com.projeto.api.repository.filter.ProfessorFilter;
 
-public class ResppedagogicoRepositoryImpl implements ResppedagogicoRepositoryQuery{
+public class ProfessorRepositoryImpl implements ProfessorRepositoryQuery{
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
-	public Page<Resppedagogico> Filtrando(ResppedagogicoFilter filtro, Pageable pageable) {
+	public Page<Professor> Filtrando(ProfessorFilter filtro, Pageable pageable) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Resppedagogico> query = builder.createQuery(Resppedagogico.class);
-		Root<Resppedagogico> root = query.from(Resppedagogico.class);
+		CriteriaQuery<Professor> query = builder.createQuery(Professor.class);
+		Root<Professor> root = query.from(Professor.class);
 
 		query.orderBy(builder.asc(root.get("codigo")));
 		Predicate[] predicato = AdicionarRestricoes(builder, filtro, root);
 		query.where(predicato);
 
-		TypedQuery<Resppedagogico> tiped = em.createQuery(query);
+		TypedQuery<Professor> tiped = em.createQuery(query);
 		AdicionarPaginacao(tiped, pageable);
 
 		return new PageImpl<>(tiped.getResultList(), pageable, Total(filtro));
 	}
 
-	private Predicate[] AdicionarRestricoes(CriteriaBuilder builder, ResppedagogicoFilter filtro, Root<Resppedagogico> root) {
+	private Predicate[] AdicionarRestricoes(CriteriaBuilder builder, ProfessorFilter filtro, Root<Professor> root) {
 		List<Predicate> lista = new ArrayList<Predicate>();
 
 		if (!StringUtils.isEmpty(filtro.getProfessor()))
-			lista.add(builder.like(builder.lower(root.get(Resppedagogico_.professor)), "%" + filtro.getProfessor().toLowerCase() + "%"));
+			lista.add(builder.like(builder.lower(root.get(Professor_.professor)), "%" + filtro.getProfessor().toLowerCase() + "%"));
 
 		return lista.toArray(new Predicate[lista.size()]);
 	}
@@ -58,10 +58,10 @@ public class ResppedagogicoRepositoryImpl implements ResppedagogicoRepositoryQue
 		tiped.setMaxResults(totalporpagina);
 	}
 
-	private Long Total(ResppedagogicoFilter filtro) {
+	private Long Total(ProfessorFilter filtro) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Long> query = builder.createQuery(Long.class);
-		Root<Resppedagogico> root = query.from(Resppedagogico.class);
+		Root<Professor> root = query.from(Professor.class);
 
 		Predicate[] predicato = AdicionarRestricoes(builder, filtro, root);
 		query.where(predicato);

@@ -10,21 +10,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.projeto.api.domain.Resppedagogico;
-import com.projeto.api.repository.ResppedagogicoRepository;
-import com.projeto.api.repository.filter.ResppedagogicoFilter;
+import com.projeto.api.domain.Professor;
+import com.projeto.api.repository.ProfessorRepository;
+import com.projeto.api.repository.filter.ProfessorFilter;
 
 @Service
-public class ResppedagogicoService {
+public class ProfessorService {
 	@Autowired
-	private ResppedagogicoRepository dao;
+	private ProfessorRepository dao;
 
 	
-	public List<Resppedagogico> Listar() {
+	public List<Professor> Listar() {
 		return this.dao.findAll();
 	}
 	
-	public Page<Resppedagogico> Filtrando(ResppedagogicoFilter filtro, Pageable page){
+	public Page<Professor> Filtrando(ProfessorFilter filtro, Pageable page){
 		try {
 			return this.dao.Filtrando(filtro, page);
 		} catch (Exception e) {
@@ -33,7 +33,7 @@ public class ResppedagogicoService {
 		}	
 	}
 
-	public Resppedagogico Criar(Resppedagogico resp) {
+	public Professor Criar(Professor resp) {
 		try {
 			return this.dao.save(resp);
 		} catch (Exception e) {
@@ -43,8 +43,8 @@ public class ResppedagogicoService {
 		}		
 	}
 
-	public Resppedagogico BuscarPorId(Long id) {
-		Optional<Resppedagogico> resp = this.dao.findById(id);
+	public Professor BuscarPorId(Long id) {
+		Optional<Professor> resp = this.dao.findById(id);
 
 		if (resp.get() == null)
 			throw new EmptyResultDataAccessException(1);
@@ -61,7 +61,7 @@ public class ResppedagogicoService {
 		}
 	}
 
-	public void Deletar(Resppedagogico resp) {
+	public void Deletar(Professor resp) {
 		try {
 			this.dao.delete(resp);
 		} catch (Exception e) {
@@ -70,9 +70,9 @@ public class ResppedagogicoService {
 		}
 	}
 
-	public Resppedagogico Atualizar(Long id, Resppedagogico resp) {
+	public Professor Atualizar(Long id, Professor resp) {
 		try {
-			Resppedagogico salvo = this.BuscarPorId(id);
+			Professor salvo = this.BuscarPorId(id);
 			
 			BeanUtils.copyProperties(resp, salvo, "codigo");
 			return this.Criar(salvo);

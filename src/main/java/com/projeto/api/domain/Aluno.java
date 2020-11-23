@@ -22,10 +22,11 @@ public class Aluno {
 	private Responsavel responsavel;
 	private Serie serie;
 	private Turma turma;
-	private Resppedagogico resppedagogico;
+	private Professor professor;
 	private Turno turno;
 	private Sala sala;
 	private EnumSexo sexo;
+	private Imagem imagem;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,8 +54,8 @@ public class Aluno {
 		this.matricula = matricula;
 	}
 	
-	@OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "responsavel_codigo")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "responsavel_codigo")
 	public Responsavel getResponsavel() {
 		return responsavel;
 	}
@@ -85,12 +86,12 @@ public class Aluno {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	@JoinColumn(name = "tbl_resppedagogico_id", referencedColumnName = "codigo")
-	public Resppedagogico getResppedagogico() {
-		return resppedagogico;
+	public Professor getProfessor() {
+		return professor;
 	}
-
-	public void setResppedagogico(Resppedagogico resppedagogico) {
-		this.resppedagogico = resppedagogico;
+	
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
@@ -120,6 +121,21 @@ public class Aluno {
 
 	public void setSexo(EnumSexo sexo) {
 		this.sexo = sexo;
+	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "imagem_codigo")
+	public Imagem getImagem() {
+		return imagem;
+	}
+	
+	public void setImagem(Imagem imagem) {
+		this.imagem = imagem;
+	}
+
+	@Override
+	public String toString() {
+		return "Aluno [codigo=" + codigo + ", imagem=" + imagem + "]";
 	}
 	
 	
