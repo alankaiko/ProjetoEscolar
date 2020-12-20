@@ -71,5 +71,4 @@ public class Cartao {
 	public void setTurma(Turma turma) {
 		this.turma = turma;
 	}
-
 }

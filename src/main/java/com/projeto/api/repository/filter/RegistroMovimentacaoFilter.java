@@ -1,0 +1,14 @@
+package com.projeto.api.repository.filter;
+
+public class RegistroMovimentacaoFilter {
+	private String descricao;
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+}

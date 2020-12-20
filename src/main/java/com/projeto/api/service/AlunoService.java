@@ -124,7 +124,7 @@ public class AlunoService {
 		return img;
 	}
 	
-	public Imagem RecuperarListasImagem(Imagem img) {
+	public Imagem RecuperarImagem(Imagem img) {
     	try {    		
 			byte[] bytes = null;
 			InputStream imagem = new FileInputStream(img.getCaminho());

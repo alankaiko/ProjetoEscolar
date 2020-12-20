@@ -133,10 +133,4 @@ public class Aluno {
 		this.imagem = imagem;
 	}
 
-	@Override
-	public String toString() {
-		return "Aluno [codigo=" + codigo + ", imagem=" + imagem + "]";
-	}
-	
-	
 }
