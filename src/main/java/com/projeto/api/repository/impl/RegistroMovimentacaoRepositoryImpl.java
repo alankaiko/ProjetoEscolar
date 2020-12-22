@@ -16,8 +16,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
+import com.projeto.api.domain.Aluno_;
+import com.projeto.api.domain.Cartao_;
 import com.projeto.api.domain.RegistroMovimentacao;
 import com.projeto.api.domain.RegistroMovimentacao_;
+import com.projeto.api.domain.Sala_;
 import com.projeto.api.repository.filter.RegistroMovimentacaoFilter;
 
 public class RegistroMovimentacaoRepositoryImpl implements RegistroMovimentacaoRepositoryQuery{
@@ -46,6 +49,17 @@ public class RegistroMovimentacaoRepositoryImpl implements RegistroMovimentacaoR
 		if (!StringUtils.isEmpty(filtro.getDescricao()))
 			lista.add(builder.like(builder.lower(root.get(RegistroMovimentacao_.descricao)), "%" + filtro.getDescricao().toLowerCase() + "%"));
 
+		if (!StringUtils.isEmpty(filtro.getDataregistro())) {
+			lista.add(builder.greaterThanOrEqualTo(root.get(RegistroMovimentacao_.dataregistro), filtro.getDataregistro()));
+		}
+		
+		if (!StringUtils.isEmpty(filtro.getDataregistro())) {
+			lista.add(builder.lessThanOrEqualTo(root.get(RegistroMovimentacao_.dataregistro), filtro.getDataregistro()));
+		}
+		
+		if (!StringUtils.isEmpty(filtro.getDescricao()))
+			lista.add(builder.like(builder.lower(root.get(RegistroMovimentacao_.cartao).get(Cartao_.aluno).get(Aluno_.sala).get(Sala_.sala)), "%" + filtro.getSala().toLowerCase() + "%"));
+		
 		return lista.toArray(new Predicate[lista.size()]);
 	}
 
