@@ -8,4 +8,5 @@ import com.projeto.api.repository.filter.RegistroMovimentacaoFilter;
 
 public interface RegistroMovimentacaoRepositoryQuery {
 	public Page<RegistroMovimentacao> Filtrando(RegistroMovimentacaoFilter filtro, Pageable pageable);
+	public Page<RegistroMovimentacao> FiltroPorData(RegistroMovimentacaoFilter filtro, Pageable pageable);
 }
