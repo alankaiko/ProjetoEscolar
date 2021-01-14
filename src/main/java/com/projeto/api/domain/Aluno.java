@@ -124,7 +124,7 @@ public class Aluno {
 	}
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "imagem_codigo")
+	@JoinColumn(name = "imagem_codigo", nullable = true)
 	public Imagem getImagem() {
 		return imagem;
 	}

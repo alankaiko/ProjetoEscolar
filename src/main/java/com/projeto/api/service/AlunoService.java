@@ -90,6 +90,8 @@ public class AlunoService {
 	public Aluno Atualizar(Long id, Aluno aluno) {
 		try {
 			Aluno salvo = this.BuscarPorId(id);
+			if(aluno.getImagem() != null)
+				this.GravarImagem(aluno.getImagem(), salvo.getCodigo());	
 			
 			BeanUtils.copyProperties(aluno, salvo, "codigo");
 			return this.Criar(salvo);
@@ -119,7 +121,9 @@ public class AlunoService {
 		String montarnome = caminho + "/" + codigoatendimento + "/" + img.getNomeimagem() + img.getExtensao();
 		img.setCaminho(montarnome);
 		this.serviceimagem.Atualizar(img.getCodigo(), img);
-		converter.CriaImagemNaPasta(montarnome, img.getImagem());
+		
+		if(img.getImagem() != null)
+			converter.CriaImagemNaPasta(montarnome, img.getImagem());
 		
 		return img;
 	}
@@ -164,6 +168,10 @@ public class AlunoService {
 	public String BuscarImagemString(Long codigo){
     	Imagem img = this.serviceimagem.BuscarPorId(codigo);
     	String encodedString = "";
+    	
+    	if(img.getCaminho() == null)
+    		return encodedString;
+    				
     	byte[] bytes = null;
     	try {
     		InputStream imagem = new FileInputStream(img.getCaminho());
@@ -173,7 +181,7 @@ public class AlunoService {
             encodedString = new String(base64.encode(bytes));
             encodedString = "data:image/jpeg;base64," + encodedString;
 		} catch (Exception e) {
-			e.printStackTrace();
+			// nem precisa de tratativa, se nao encontrar nao faz nada e ja esta sendo tratado la no If
 		}                
         return encodedString;
     }
