@@ -25,9 +25,8 @@ public class RegistroMovimentacaoService {
 	
 	public Page<RegistroMovimentacao> Filtrando(RegistroMovimentacaoFilter filtro, Pageable page){
 		try {
-			return this.dao.Filtrando(filtro, page);
+			return this.dao.FiltroPorData(filtro, page);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}	
 	}
