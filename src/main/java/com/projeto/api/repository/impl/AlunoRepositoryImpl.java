@@ -45,6 +45,9 @@ public class AlunoRepositoryImpl implements AlunoRepositoryQuery {
 
 		if (!StringUtils.isEmpty(filtro.getNome()))
 			lista.add(builder.like(builder.lower(root.get(Aluno_.nome)), "%" + filtro.getNome().toLowerCase() + "%"));
+		
+		if (!StringUtils.isEmpty(filtro.getMatricula()))
+			lista.add(builder.like(builder.lower(root.get(Aluno_.matricula)), "%" + filtro.getMatricula().toLowerCase() + "%"));
 
 		return lista.toArray(new Predicate[lista.size()]);
 	}

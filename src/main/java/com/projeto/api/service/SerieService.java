@@ -10,10 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.projeto.api.domain.Sala;
 import com.projeto.api.domain.Serie;
 import com.projeto.api.repository.SerieRepository;
-import com.projeto.api.repository.filter.SalaFilter;
 import com.projeto.api.repository.filter.SerieFilter;
 
 @Service

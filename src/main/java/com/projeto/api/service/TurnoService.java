@@ -18,7 +18,6 @@ import com.projeto.api.repository.filter.TurnoFilter;
 public class TurnoService {
 	@Autowired
 	private TurnoRepository dao;
-
 	
 	public List<Turno> Listar() {
 		return this.dao.findAll();
@@ -33,7 +32,6 @@ public class TurnoService {
 		}	
 	}
 
-
 	public Turno Criar(Turno turno) {
 		try {
 			return this.dao.save(turno);
@@ -41,7 +39,7 @@ public class TurnoService {
 			System.out.println("Erro ao executar o metodo Criar------------------ de TurnoService");
 			e.printStackTrace();
 			return null;
-		}		
+		}				
 	}
 
 	public Turno BuscarPorId(Long id) {
@@ -74,7 +72,6 @@ public class TurnoService {
 	public Turno Atualizar(Long id, Turno turno) {
 		try {
 			Turno salvo = this.BuscarPorId(id);
-			
 			BeanUtils.copyProperties(turno, salvo, "codigo");
 			return this.Criar(salvo);
 		} catch (Exception e) {

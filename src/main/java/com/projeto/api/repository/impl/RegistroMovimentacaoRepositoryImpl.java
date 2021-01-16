@@ -83,7 +83,7 @@ public class RegistroMovimentacaoRepositoryImpl implements RegistroMovimentacaoR
 		}
 	
 		if (!StringUtils.isEmpty(filtro.getSala()))
-			lista.add(builder.like(builder.lower(rootsala.get(Sala_.sala)), "%" + filtro.getSala().toLowerCase() + "%"));
+			lista.add(builder.equal(builder.lower(rootsala.get(Sala_.sala)), filtro.getSala().toLowerCase()));
 		
 		return lista.toArray(new Predicate[lista.size()]);
 	}

@@ -8,5 +8,4 @@ import com.projeto.api.repository.impl.TurnoRepositoryQuery;
 
 @Repository
 public interface TurnoRepository extends JpaRepository<Turno, Long>, TurnoRepositoryQuery{
-
 }
